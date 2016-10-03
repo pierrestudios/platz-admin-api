@@ -1,0 +1,21 @@
+{
+  "name": "Platzshare User Admin",
+  "version": "1.0.0",
+  "description": "platzshare user admin",
+  "main": "server.js",
+  "dependencies": {
+    "express": "~4.13.4",
+    "sequelize": "~3.23.3",
+    "mysql": "~2.11.1",
+    "jsonwebtoken": "~7.0.0",
+    "body-parser": "~1.15.1",
+    "crypto": "0.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Pierre Studios",
+  "license": "BSD-2-Clause"
+}
