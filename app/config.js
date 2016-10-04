@@ -22,5 +22,23 @@ module.exports = {
 		const data = JSON.parse(content);  
 		onFileContent(data);
 	  });
+	},
+	parseHerokuEnvDB: function(herokuEnvDBUrl) {
+		herokuEnvDBUrl = herokuEnvDBUrl.replace('mysql://','');
+		herokuEnvDBUrl = herokuEnvDBUrl.replace('?reconnect=true','');
+		const herokuEnvDBVars = herokuEnvDBUrl.split('/');
+		const herokuEnvDBName = herokuEnvDBVars[1] || '';
+		const herokuEnvDBVars2 = (herokuEnvDBVars[0] && herokuEnvDBVars[0].split('@')) || '';
+		const herokuEnvDBHost = herokuEnvDBVars2[1] || '';
+		const herokuEnvDBVars3 = (herokuEnvDBVars2[0] && herokuEnvDBVars2[0].split(':')) || '';
+		const herokuEnvDBUser = herokuEnvDBVars3[0] || '';
+		const herokuEnvDBPass = herokuEnvDBVars3[1] || '';
+		return {
+			"dbtype": "mysql",
+			"dbhost": herokuEnvDBHost,
+			"dbname": herokuEnvDBName, 
+			"dbuser": herokuEnvDBUser,
+			"dbpass": herokuEnvDBPass
+		}
 	}
 }

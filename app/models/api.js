@@ -4,7 +4,7 @@ var NodeApp = require('../nodeapp');
 var Config = require('../config');
 
 // Load Env
-Config.loadEnv('./.env', function(data) {
+Config.loadEnv('./.env1', function(data) {
 	Config.dbhost = data.dbhost;
 	Config.dbname = data.dbname;
 	Config.dbuser = data.dbuser;
@@ -13,9 +13,11 @@ Config.loadEnv('./.env', function(data) {
 	// console.log('Config', Config);
 }, function(err) {
 	console.log('Env Config not loaded: ', err);
-	console.log('process.env.DATABASE_URL', process.env.DATABASE_URL);
-	console.log('process.env', process.env);
+	console.log('process.env.CLEARDB_DATABASE_URL', process.env.CLEARDB_DATABASE_URL);
+	const dbCreds = Config.parseHerokuEnvDB(process.env.CLEARDB_DATABASE_URL);
+	// console.log('process.env', process.env);
 	// console.log('process', process);
+	console.log('dbCreds', dbCreds);
 })
 
 module.exports = Api = {
