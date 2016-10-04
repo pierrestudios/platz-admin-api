@@ -244,10 +244,12 @@ module.exports = AppRouter = {
         app.use('/auth', this.apiLogin);
         app.use('/v1', this.apiRoutes);
 
+		// set port 
+		app.set('port', (process.env.PORT || 8000));
+
         // start server
-        app.listen(8000, function () {
-            console.log("You're connected. Node is running. Good.");
-			
+        app.listen(app.get('port'), function () {
+            console.log("You're connected. Node is running on", app.get('port'));
         });
 
     }

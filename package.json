@@ -1,7 +1,10 @@
 {
   "name": "platzshare-user-admin",
   "version": "1.0.0",
-  "description": "platzshare user admin",
+  "description": "platzshare user admin api",
+  "engines": {
+    "node": "4.6.0"
+  },	
   "main": "server.js",
   "dependencies": {
     "express": "~4.13.4",

@@ -4,15 +4,16 @@ var NodeApp = require('../nodeapp');
 var Config = require('../config');
 
 // Load Env
-Config.loadEnv('./env.json', function(data) {
+Config.loadEnv('./.env', function(data) {
 	Config.dbhost = data.dbhost;
 	Config.dbname = data.dbname;
 	Config.dbuser = data.dbuser;
 	Config.dbpass = data.dbpass;
 	Config.dbtype = data.dbtype;
 	// console.log('Config', Config);
-}, function() {
+}, function(err) {
 	console.log('Env Config not loaded: ', err);
+	console.log('process.env.DATABASE_URL', process.env.DATABASE_URL);
 })
 
 module.exports = Api = {
