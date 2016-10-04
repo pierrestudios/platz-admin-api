@@ -18,6 +18,11 @@ Config.loadEnv('./.env1', function(data) {
 	// console.log('process.env', process.env);
 	// console.log('process', process);
 	console.log('dbCreds', dbCreds);
+	Config.dbhost = dbCreds.dbhost;
+	Config.dbname = dbCreds.dbname;
+	Config.dbuser = dbCreds.dbuser;
+	Config.dbpass = dbCreds.dbpass;
+	Config.dbtype = dbCreds.dbtype;
 })
 
 module.exports = Api = {
