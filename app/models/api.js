@@ -3,6 +3,18 @@ var crypto = require('crypto');
 var NodeApp = require('../nodeapp');
 var Config = require('../config');
 
+// Load Env
+Config.loadEnv('./env.json', function(data) {
+	Config.dbhost = data.dbhost;
+	Config.dbname = data.dbname;
+	Config.dbuser = data.dbuser;
+	Config.dbpass = data.dbpass;
+	Config.dbtype = data.dbtype;
+	// console.log('Config', Config);
+}, function() {
+	console.log('Env Config not loaded: ', err);
+})
+
 module.exports = Api = {
     
     // Api METHODS

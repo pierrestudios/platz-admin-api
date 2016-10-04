@@ -1,5 +1,5 @@
 {
-  "name": "Platzshare User Admin",
+  "name": "platzshare-user-admin",
   "version": "1.0.0",
   "description": "platzshare user admin",
   "main": "server.js",
