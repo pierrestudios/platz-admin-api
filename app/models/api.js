@@ -14,6 +14,8 @@ Config.loadEnv('./.env', function(data) {
 }, function(err) {
 	console.log('Env Config not loaded: ', err);
 	console.log('process.env.DATABASE_URL', process.env.DATABASE_URL);
+	console.log('process.env', process.env);
+	console.log('process', process);
 })
 
 module.exports = Api = {
