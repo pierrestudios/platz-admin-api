@@ -33,7 +33,7 @@ module.exports = Api = {
         code = code || 200;
         data = data || {};
         response.set({
-            'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+            'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, api-access-token',
             'Access-Control-Allow-Methods': 'PUT, DELETE, GET, POST, OPTIONS',
             'Access-Control-Allow-Origin': '*',
             'Cache-Control': 'public, max-age=0',
