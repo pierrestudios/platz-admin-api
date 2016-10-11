@@ -34,7 +34,7 @@ module.exports = Api = {
         data = data || {};
         response.set({
             'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-            'Access-Control-Allow-Methods': 'PUT, DELETE, GET, POST',
+            'Access-Control-Allow-Methods': 'PUT, DELETE, GET, POST, OPTIONS',
             'Access-Control-Allow-Origin': '*',
             'Cache-Control': 'public, max-age=0',
             'Content-Type': "application/json",
@@ -48,7 +48,7 @@ module.exports = Api = {
     },
 
     connectDB: function() {
-        var sequelize = new Sequelize(Config.dbname, Config.dbuser, Config.dbpass, {
+        return new Sequelize(Config.dbname, Config.dbuser, Config.dbpass, {
             host: Config.dbhost,
             dialect: Config.dbtype, 
             pool: {
@@ -57,8 +57,6 @@ module.exports = Api = {
                 idle: 10000
             }
         });
-
-        return sequelize;
     },
 
     loadDBModels: function(callback) {
