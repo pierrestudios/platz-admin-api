@@ -73,12 +73,33 @@ module.exports = AppRouter = {
 
         });
 
+		// cors settings
+		var cors = function(req, res, next) {
+			res.header('Access-Control-Allow-Origin', '*');
+			res.header('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, DELETE, OPTIONS');
+			res.header('Access-Control-Allow-Headers', 'Content-Type, X-Requested-With, api-access-token');
+			// console.log('req.method', req.method);
+			if(req.method == 'OPTIONS') {
+				Api.prepareResponse(res, 200, {
+                    "success": true
+                });
+			} else next();
+		};
+		
+		this.apiRoutes.use(cors);
+
         // route middleware to verify a token
         this.apiRoutes.use(function(req, res, next) {
 
             // check header or url parameters or post parameters for token
             var token = req.body.token || req.query.token || req.headers['api-access-token'];
 
+			/*
+			console.log('token', token);
+			console.log('req.body', req.body);
+			console.log('req.headers', req.headers);
+			*/
+			
             // decode token
             if (token) {
 

@@ -2,8 +2,8 @@
 const fs = require('fs');
 
 module.exports = NodeApp = {
-    serverName: 'PlatzShare DevMachine/1.1 (Api Server)',
-    appName: 'PlatzShare Api Server',
+    serverName: 'Platz DevMachine/1.1 (Api Server)',
+    appName: 'Platz Api Server',
     appSecret: 'appSecret',
     DB: null,
     TablePrefix: 'ci_',
