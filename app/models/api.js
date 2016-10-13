@@ -10,7 +10,7 @@ Config.loadEnv('./.env', function(data) {
 	Config.dbuser = data.dbuser;
 	Config.dbpass = data.dbpass;
 	Config.dbtype = data.dbtype;
-	console.log('Config', Config);
+	// console.log('Config', Config);
 }, function(err) {
 	console.log('Env Config not loaded: ', err);
 	console.log('process.env.CLEARDB_DATABASE_URL', process.env.CLEARDB_DATABASE_URL);

@@ -37,6 +37,9 @@ module.exports = AppRouter = {
         // Auth Sign in: "/signin"
         this.apiLogin.post('/signin', function(req, res) {
 
+			// console.log('req.body', req.body);
+			// console.log('req', req);
+			
             // Validate
             if(!req.body['username'] || !req.body['password']) {
                 Api.prepareResponse(res, 403, {
