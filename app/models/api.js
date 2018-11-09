@@ -2,28 +2,8 @@ var Sequelize = require('sequelize');
 var crypto = require('crypto');
 var NodeApp = require('../nodeapp');
 var Config = require('../config');
-
-// Load Env
-Config.loadEnv('./.env', function(data) {
-	Config.dbhost = data.dbhost;
-	Config.dbname = data.dbname;
-	Config.dbuser = data.dbuser;
-	Config.dbpass = data.dbpass;
-	Config.dbtype = data.dbtype;
-	// console.log('Config', Config);
-}, function(err) {
-	console.log('Env Config not loaded: ', err);
-	console.log('process.env.CLEARDB_DATABASE_URL', process.env.CLEARDB_DATABASE_URL);
-	const dbCreds = Config.parseHerokuEnvDB(process.env.CLEARDB_DATABASE_URL);
-	// console.log('process.env', process.env);
-	// console.log('process', process);
-	console.log('dbCreds', dbCreds);
-	Config.dbhost = dbCreds.dbhost;
-	Config.dbname = dbCreds.dbname;
-	Config.dbuser = dbCreds.dbuser;
-	Config.dbpass = dbCreds.dbpass;
-	Config.dbtype = dbCreds.dbtype;
-})
+ 
+// console.log('Config', Config);
 
 module.exports = Api = {
     
