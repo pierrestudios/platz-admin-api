@@ -1,10 +1,9 @@
-// NodeApp: PlatzShare API
-const fs = require('fs');
+var Config = require('./config');
 
 module.exports = NodeApp = {
     serverName: 'Platz DevMachine/1.1 (Api Server)',
     appName: 'Platz Api Server',
-    appSecret: 'appSecret',
+    appSecret: Config.appSecret,
     DB: null,
     TablePrefix: 'ci_',
     Models: {

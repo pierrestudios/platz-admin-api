@@ -1,23 +1,16 @@
-// Require NodeJs Modules
-var express = require('express');
-var bodyParser = require('body-parser');
-var jwt = require('jsonwebtoken');
-var Sequelize = require('sequelize');
-
-// Require App Modules
-var NodeApp = require('./nodeapp');
-var Api = require('./models/api');
-
-// Start Express Module
-var app = express();
+const express = require('express');
+const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
+const NodeApp = require('./nodeapp');
+const Api = require('./models/api');
+var Config = require('./config');
+const app = express();
 
 module.exports = AppRouter = {
-    
     apiRoutes: express.Router(),
     apiLogin: express.Router(),
 
-    // EXPRESS 
-    
+    // Init Server
     init: function() {
 
         // Site root uri: "/"
@@ -37,9 +30,6 @@ module.exports = AppRouter = {
         // Auth Sign in: "/signin"
         this.apiLogin.post('/signin', function(req, res) {
 
-			// console.log('req.body', req.body);
-			// console.log('req', req);
-			
             // Validate
             if(!req.body['username'] || !req.body['password']) {
                 Api.prepareResponse(res, 403, {
@@ -269,7 +259,7 @@ module.exports = AppRouter = {
         app.use('/v1', this.apiRoutes);
 
 		// set port 
-		app.set('port', (process.env.PORT || 8000));
+		app.set('port', Config.appPort);
 
         // start server
         app.listen(app.get('port'), function () {

@@ -1,5 +1,4 @@
-// Require App Modules
-var AppRouter = require('./app/router');
+const AppRouter = require('./app/router');
     AppRouter.init();
 
 
