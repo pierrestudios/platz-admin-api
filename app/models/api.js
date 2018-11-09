@@ -3,7 +3,6 @@ var crypto = require('crypto');
 var NodeApp = require('../nodeapp');
 var Config = require('../config');
  
-// console.log('Config', Config);
 
 module.exports = Api = {
     
