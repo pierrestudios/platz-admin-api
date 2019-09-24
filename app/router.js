@@ -1,33 +1,30 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
+
 const NodeApp = require("./nodeapp");
 const Api = require("./models/api");
 const { appPort } = require("./config");
+
 const app = express();
+const apiLogin = express.Router();
+const apiRoutes = express.Router();
 
 module.exports = AppRouter = {
-  apiRoutes: express.Router(),
-  apiLogin: express.Router(),
-
-  // Init Server
   init: function() {
-    // Site root uri: "/"
     app.get("/", function(req, res) {
       Api.prepareResponse(res, 200, {
         data: "Api Version 1 can be found @ /v1"
       });
     });
 
-    // Api Docs: "/docs"
     app.get("/docs", function(req, res) {
       Api.prepareResponse(res, 200, {
         data: "Api Docs"
       });
     });
 
-    // Auth Sign in: "/signin"
-    this.apiLogin.post("/signin", function(req, res) {
+    apiLogin.post("/signin", function(req, res) {
       // Validate
       if (!req.body["username"] || !req.body["password"]) {
         Api.prepareResponse(res, 403, {
@@ -61,8 +58,7 @@ module.exports = AppRouter = {
       });
     });
 
-    // cors settings
-    var cors = function(req, res, next) {
+    apiRoutes.use(function(req, res, next) {
       res.header("Access-Control-Allow-Origin", "*");
       res.header(
         "Access-Control-Allow-Methods",
@@ -78,12 +74,9 @@ module.exports = AppRouter = {
           success: true
         });
       } else next();
-    };
+    });
 
-    this.apiRoutes.use(cors);
-
-    // route middleware to verify a token
-    this.apiRoutes.use(function(req, res, next) {
+    apiRoutes.use(function(req, res, next) {
       // check header or url parameters or post parameters for token
       var token =
         req.body.token || req.query.token || req.headers["api-access-token"];
@@ -113,20 +106,13 @@ module.exports = AppRouter = {
 
     // API ENDPOINTS
 
-    // Api root: "/v1/"
-    this.apiRoutes.get("/", function(req, res) {
+    apiRoutes.get("/", function(req, res) {
       Api.prepareResponse(res, 200, {
         data: "PlatzShare Api"
       });
     });
 
-    /*
-			Api Get User Data: "/v1/data/users/:userId"
-			Type: GET
-			Params: int "userId" (required)
-			Returns: NodeApp.Models.User | null
-		*/
-    this.apiRoutes.get("/data/users/:userId", function(req, res) {
+    apiRoutes.get("/data/users/:userId", function(req, res) {
       var userId = req.params["userId"] || "";
       Api.loadDBData(
         {
@@ -149,12 +135,7 @@ module.exports = AppRouter = {
       );
     });
 
-    /*
-			Api Get All Members Data: "/v1/data/members"
-			Type: GET
-			Returns: Array[NodeApp.Models.Member] | null
-		*/
-    this.apiRoutes.get("/data/members/", function(req, res) {
+    apiRoutes.get("/data/members/", function(req, res) {
       Api.loadDBData(
         {
           model: "Member",
@@ -173,17 +154,13 @@ module.exports = AppRouter = {
       );
     });
 
-    /*
-			Api Search Members: "/v1/data/members/search"
-			Type: POST
-			Returns: Array[NodeApp.Models.Member] | null
-		*/
-    this.apiRoutes.post("/data/members/search", function(req, res) {
-      var filter = req.body["filter"];
+    apiRoutes.post("/data/members/search", function(req, res) {
+      const { filter } = req.body;
+
       Api.loadDBData(
         {
           model: "Member",
-          filter: filter,
+          filter,
           includes: [
             { model: "User", as: "User" },
             { model: "ProviderType", as: "ProviderType" }
@@ -199,13 +176,7 @@ module.exports = AppRouter = {
       );
     });
 
-    /*
-			Api Get Member Data: "/v1/data/members/:memberId"
-			Type: GET
-			Params: int "memberId" (required)
-			Returns: NodeApp.Models.Member | null
-		*/
-    this.apiRoutes.get("/data/members/:memberId", function(req, res) {
+    apiRoutes.get("/data/members/:memberId", function(req, res) {
       var memberId = req.params["memberId"] || "";
       Api.loadDBData(
         {
@@ -263,18 +234,11 @@ module.exports = AppRouter = {
       );
     });
 
-    // use body parser
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
-
-    // apply the routes to our application with the prefix /v1
-    app.use("/auth", this.apiLogin);
-    app.use("/v1", this.apiRoutes);
-
-    // set port
+    app.use("/auth", apiLogin);
+    app.use("/v1", apiRoutes);
     app.set("port", appPort);
-
-    // start server
     app.listen(app.get("port"), function() {
       console.log("You're connected. Node is running on", app.get("port"));
     });

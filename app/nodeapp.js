@@ -1,6 +1,6 @@
 var { appSecret } = require("./config");
 
-module.exports = NodeApp = {
+module.exports = {
   serverName: "Platz DevMachine/1.1 (Api Server)",
   appName: "Platz Api Server",
   appSecret: appSecret,
